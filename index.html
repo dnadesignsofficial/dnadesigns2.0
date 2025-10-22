@@ -551,7 +551,7 @@ section h2 {
     flex-direction: column; /* Allows adding text above/below the card */
     align-items: center;
 }
-/* Removed .portfolio-intro as it's no longer needed at the top */
+/* Removed .portfolio-intro as it was the duplicate content */
 
 .single-portfolio-card {
     max-width: 600px;
@@ -578,6 +578,8 @@ section h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* Ensure padding for content inside the card, including the new text */
+    padding: 20px; 
 }
 
 .portfolio-card-content img {
@@ -599,7 +601,6 @@ section h2 {
     margin-top: 20px; /* Space from the image above */
     padding-top: 15px;
     border-top: 1px solid rgba(0, 191, 255, 0.2);
-    /* No bottom margin needed if it's the last element */
 }
 
 
@@ -921,6 +922,7 @@ footer::after {
 <section id="portfolio">
   <h2 data-aos="fade-down">Our Portfolio</h2>
     <div class="portfolio-container">
+        
         <div class="single-portfolio-card" data-aos="zoom-in" data-aos-delay="180">
             <div class="portfolio-card-content">
                 <img src="portfolio1.png" alt="Featured Portfolio Project"> 
@@ -931,7 +933,7 @@ footer::after {
             </div>
         </div>
         
-        </div>
+    </div>
 </section>
 
 <section id="contact">
@@ -947,8 +949,7 @@ footer::after {
     <div style="text-align: center; margin-top: 30px; font-size: 1.1rem; color: #00bfff;" data-aos="fade-up" data-aos-delay="200">
         <p>Call Us: <a href="tel:9111288148" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">+91 9111288148</a></p>
         <p>Email: <a href="mailto:dnadesigns.official@gmail.com" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">dnadesigns.official@gmail.com</a></p>
-        <p>Website: <a href="https://dnadesigns.co.in" target="_blank" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">dnadesigns.co.in</a></p>
-    </div>
+        </div>
 </section>
 
 <footer>
