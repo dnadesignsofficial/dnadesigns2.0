@@ -401,7 +401,7 @@ section h2 {
 
 /* === PORTFOLIO SECTION === */
 .slider-container { position:relative; max-width:1200px; margin:0 auto; padding:0 20px;}
-.slider-track { display:flex; gap:35px; transition:transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); } /* FASTER TRANSITION: 0.5s */
+.slider-track { display:flex; gap:35px; transition:transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); } /* TRANSITION SPEED INCREASED HERE */
 .slide { 
     min-width:350px; 
     border-radius:20px; 
@@ -580,7 +580,7 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
 
 <nav>
   <div class="logo">
-    <img src="logo.jpg" alt="DNA Designs Logo">
+    <img src="logo.png" alt="DNA Designs Logo">
     DNA Designs
   </div>
   <div class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></div>
@@ -653,49 +653,49 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
             <div class="service-unit">
                 <h3><i class="fas fa-palette"></i> Brand & Logo Design</h3>
                 <ul>
-                    <li>Custom Logo Design</li>
-                    <li>Brand Identity Kits</li>
-                    <li>Rebranding / Logo Concepts</li>
-                    <li>Symbol + Typography Logos</li>
-                    <li>3D / Animated Logos</li>
+                    [cite_start]<li>Custom Logo Design [cite: 1]</li>
+                    [cite_start]<li>Brand Identity Kits [cite: 1]</li>
+                    [cite_start]<li>Rebranding / Logo Concepts [cite: 2]</li>
+                    [cite_start]<li>Symbol + Typography Logos [cite: 3]</li>
+                    [cite_start]<li>3D / Animated Logos [cite: 4]</li>
                 </ul>
             </div>
             <div class="service-unit">
                 <h3><i class="fas fa-video"></i> Video & Motion Graphics</h3>
                 <ul>
-                    <li>Promo Reels</li>
-                    <li>Event Recaps / Cinematic Montages</li>
-                    <li>Product Edits</li>
-                    <li>Motion Graphics</li>
-                    <li>Visual Storytelling</li>
+                    [cite_start]<li>Promo Reels [cite: 10]</li>
+                    [cite_start]<li>Event Recaps / Cinematic Montages [cite: 11, 12]</li>
+                    [cite_start]<li>Product Edits [cite: 13]</li>
+                    [cite_start]<li>Motion Graphics [cite: 14]</li>
+                    [cite_start]<li>Visual Storytelling [cite: 25]</li>
                 </ul>
             </div>
             <div class="service-unit">
                 <h3><i class="fas fa-desktop"></i> Web & UX Design</h3>
                 <ul>
-                    <li>Websites</li>
-                    <li>Business Pages / Portfolio Sites</li>
-                    <li>Responsive & Modern Interactive Landing Pages</li>
+                    [cite_start]<li>Websites [cite: 15]</li>
+                    [cite_start]<li>Business Pages / Portfolio Sites [cite: 16]</li>
+                    [cite_start]<li>Responsive & Modern Interactive Landing Pages [cite: 17]</li>
                 </ul>
             </div>
             <div class="service-unit">
                 <h3><i class="fas fa-bullhorn"></i> Print & Campaign Media</h3>
                 <ul>
-                    <li>Event Posters / College & Corporate Flyers</li>
-                    <li>Campaign Designs / Social Media Banners</li>
-                    <li>Minimal Infographics / Designs</li>
-                    <li>Corporate & Academic Decks</li>
+                    [cite_start]<li>Event Posters / College & Corporate Flyers [cite: 5, 6]</li>
+                    [cite_start]<li>Campaign Designs / Social Media Banners [cite: 7, 9]</li>
+                    [cite_start]<li>Minimal Infographics / Designs [cite: 19]</li>
+                    [cite_start]<li>Corporate & Academic Decks [cite: 18, 25]</li>
                 </ul>
             </div>
              <div class="service-unit">
                 <h3><i class="fas fa-pencil-ruler"></i> Digital Art & Pitch Decks</h3>
                 <ul>
-                    <li>Start-up Presentations / Investor Decks / Pitch Decks</li>
-                    <li>PowerPoint & Canva Templates</li>
-                    <li>Digital Sketches / Custom Characters / Illustrations</li>
-                    <li>Portrait Art / Concept-Based Artwork</li>
-                    <li>Photo-to-Art Conversions / Couple / Family Art</li>
-                    <li>Vector Art</li>
+                    [cite_start]<li>Start-up Presentations / Investor Decks / Pitch Decks [cite: 18, 26]</li>
+                    [cite_start]<li>PowerPoint & Canva Templates [cite: 19]</li>
+                    [cite_start]<li>Digital Sketches / Custom Characters / Illustrations [cite: 20, 21]</li>
+                    [cite_start]<li>Portrait Art / Concept-Based Artwork [cite: 24]</li>
+                    [cite_start]<li>Photo-to-Art Conversions / Couple / Family Art [cite: 22, 23]</li>
+                    [cite_start]<li>Vector Art [cite: 21]</li>
                 </ul>
             </div>
         </div>
@@ -883,11 +883,11 @@ const startAutoSlide = () => {
                 slideIndex = 0;
                 sliderTrack.style.transform = `translateX(0)`;
                 setTimeout(() => {
-                    sliderTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; // FASTER TRANSITION
+                    sliderTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; 
                 }, 50); 
-            }, 500); // FASTER TIMEOUT
+            }, 500); 
         }
-    }, 2500); // FASTER INTERVAL
+    }, 2500); 
 };
 
 startAutoSlide(); 
