@@ -30,7 +30,7 @@ body {
 body::-webkit-scrollbar { width: 10px; }
 body::-webkit-scrollbar-track { background: #111; }
 body::-webkit-scrollbar-thumb { 
-    background-color: #00bfff; 
+    background-color: #00bfff; /* Blue Neon */
     border-radius: 6px;
     border: 2px solid #111;
 }
@@ -42,7 +42,7 @@ button { cursor:pointer; border:none; background:none; padding:0; }
 body::before { 
     content:''; position:fixed; top:0; left:0; width:100%; height:100%; 
     background-image:
-        linear-gradient(rgba(0, 191, 255, 0.05) 1px, transparent 1px), 
+        linear-gradient(rgba(0, 191, 255, 0.05) 1px, transparent 1px), /* Blue Neon Grid */
         linear-gradient(90deg, rgba(0, 191, 255, 0.05) 1px, transparent 1px);
     background-size:30px 30px; 
     z-index:-3; 
@@ -69,13 +69,13 @@ nav {
 nav .logo { 
     font-size:1.9rem; font-weight:900; 
     display:flex; align-items:center; 
-    color:#00bfff; 
+    color:#00bfff; /* Blue Neon */
     letter-spacing: 1px;
     text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
 }
 nav .logo img { height:40px; margin-right:12px; filter: drop-shadow(0 0 8px rgba(0, 191, 255, 0.6)); }
 
-nav ul { display:flex; gap:40px; align-items: center; } 
+nav ul { display:flex; gap:40px; }
 nav ul li { list-style:none; }
 nav ul li a { 
     font-weight:600; 
@@ -88,7 +88,7 @@ nav ul li a::after {
     content:'';
     position:absolute; bottom:0; left:0;
     width:0; height:3px;
-    background:linear-gradient(90deg, #00bfff, #00ffff); 
+    background:linear-gradient(90deg, #00bfff, #00ffff); /* Blue to Aqua Glow */
     transition:width 0.4s ease-in-out;
 }
 nav ul li a:hover { 
@@ -98,22 +98,16 @@ nav ul li a:hover {
 }
 nav ul li a:hover::after { width:100%; }
 
-/* Live Clock Styling */
-#live-clock {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #00bfff;
-    text-shadow: 0 0 5px #00ffff;
-    margin-left: 20px;
-    padding: 5px 10px;
-    border: 1px solid #00bfff;
-    border-radius: 5px;
-    transition: all 0.3s;
+
+/* === HAMBURGER === */
+.menu-toggle { display:none; flex-direction:column; gap:6px; cursor:pointer; }
+.menu-toggle span { 
+    width:30px; height:4px; background:#00bfff; 
+    border-radius:2px; transition:0.4s; 
 }
-#live-clock:hover {
-    background: rgba(0, 191, 255, 0.1);
-    box-shadow: 0 0 10px #00ffff;
-}
+.menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
 
 /* === HERO SECTION === */
@@ -136,7 +130,7 @@ header video {
     opacity:0.3; 
     filter: grayscale(80%) brightness(0.6); 
 }
-#particles-js { /* THIS IS THE MAIN BACKGROUND ANIMATION CONTAINER */
+#particles-js { 
     position:absolute; width:100%; height:100%; z-index:-1; 
 }
 .hero-content { 
@@ -206,6 +200,20 @@ header video {
 }
 .btn:active { transform: translateY(-2px) scale(0.98); } 
 
+.hero-img { 
+    width:220px; height:220px; 
+    border-radius:50%; 
+    border:6px solid #00bfff; 
+    margin-top:40px; 
+    object-fit:cover; 
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.6);
+    filter: brightness(1.1) contrast(1.1);
+    animation: heroImgPulse 3s infinite alternate ease-in-out;
+}
+@keyframes heroImgPulse {
+    0% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 191, 255, 0.6); }
+    100% { transform: scale(1.03); box-shadow: 0 0 40px rgba(0, 255, 255, 0.8); }
+}
 
 /* === SECTION HEADINGS === */
 section { padding:120px 50px; position:relative; z-index:1; }
@@ -222,111 +230,84 @@ section h2 {
     letter-spacing: 2px;
 }
 
-/* === FOUNDERS SECTION (SINGLE CARD STYLES) === */
-.founders-container { 
-    display:flex; 
-    justify-content:center; 
-    align-items:center;
-}
-.combined-founder-card { 
-    max-width: 800px; 
-    width: 100%;
+/* === FOUNDERS SECTION === */
+.founders-container { display:flex; flex-wrap:wrap; justify-content:center; gap:60px; }
+.founder-card { 
+    width:250px; /* Fixed width for horizontal scroll */
+    flex-shrink: 0; /* Prevents cards from shrinking */
     text-align:center; 
     opacity:0; 
     transform:translateY(70px); 
     transition:1s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
     background:rgba(255, 255, 255, 0.08); 
-    padding:40px;
+    padding:25px;
     border-radius:20px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.6);
     border: 1px solid rgba(0, 191, 255, 0.3);
     perspective: 1000px; 
 }
-.combined-founder-card:hover { 
-    transform:scale(1.05) translateY(-10px); 
+.founder-card:hover { 
+    transform:scale(1.08) translateY(-10px); 
     box-shadow: 0 20px 50px rgba(0, 191, 255, 0.5);
     border-color: #00ffff;
 }
 
-/* New About Text Style */
-.about-intro-text {
-    max-width: 800px;
-    margin: 0 auto 40px;
-    text-align: center;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: #ccc;
-    border-bottom: 2px solid rgba(0, 191, 255, 0.2);
-    padding-bottom: 30px;
-    margin-top: -50px; 
-}
-
-
-.founder-images {
-    display: flex;
-    justify-content: space-around;
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.founder-unit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.founder-unit .img-wrapper {
-    width:150px; 
-    height:150px;
-    margin-bottom: 15px;
+.founder-card .img-wrapper {
+    width:200px; height:200px;
+    margin:0 auto 20px auto;
     border-radius:50%;
-    border:4px solid #00bfff; 
+    border:5px solid #00bfff;
     overflow: hidden;
     position: relative;
     box-shadow: 0 0 25px rgba(0, 191, 255, 0.6);
     transition: all 0.5s ease-in-out;
     transform-style: preserve-3d;
 }
-
-.founder-unit:hover .img-wrapper {
+.founder-card .img-wrapper:hover {
     border-color: #00ffff;
     box-shadow: 0 0 35px rgba(0, 255, 255, 0.8);
-    transform: rotateY(5deg) rotateX(3deg); 
+    transform: rotateY(10deg) rotateX(5deg); 
 }
-.founder-unit img { 
+.founder-card img { 
     width:100%; height:100%; 
     object-fit:cover; 
     display:block;
     transition: transform 0.6s ease-in-out;
     filter: brightness(1.05) contrast(1.05);
 }
-.founder-unit:hover img { transform: scale(1.1); }
+.founder-card .img-wrapper:hover img { transform: scale(1.1); }
 
 
-.founder-unit h4 { 
+.founder-card h4 { 
+    margin-top:10px; 
     color:#00ffff; 
-    font-size:1.4rem; 
+    font-size:1.6rem;
     font-weight:800;
     text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
 }
 
 
-/* === SERVICES SECTION (SINGLE CARD STYLES) === */
-.services { 
-    display:flex; 
-    justify-content:center;
-    padding: 0 50px; 
+/* === SERVICES SECTION === */
+.services { display:flex; /* Changed to flex for horizontal scrolling */
+    gap:40px; 
     margin-bottom:50px; 
+    flex-wrap: nowrap; /* Prevent wrapping on small screens */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
+    padding-bottom: 20px; /* Space for scrollbar */
+    justify-content: flex-start; /* Align items to start for scroll */
 }
-.combined-service-card {
-    display: flex; 
-    flex-wrap: wrap; 
-    max-width: 1200px; 
-    width: 100%;
-    
+
+/* Hide scrollbar for aesthetics on webkit browsers */
+.services::-webkit-scrollbar { display: none; }
+.services { -ms-overflow-style: none; scrollbar-width: none; } /* For IE and Firefox */
+
+
+.service-card { 
+    min-width:300px; /* Ensure a minimum width */
+    flex-shrink: 0; /* Prevents cards from shrinking */
     background:rgba(255, 255, 255, 0.08); 
-    padding:30px; 
+    padding:50px; 
     border-radius:25px; 
     text-align:center; 
     border:2px solid rgba(0, 191, 255, 0.2); 
@@ -337,134 +318,75 @@ section h2 {
     position:relative;
     overflow:hidden;
 }
+.service-card::before { 
+    content: '';
+    position: absolute; inset: -5px;
+    background: linear-gradient(45deg, #00bfff, #00ffff, #00bfff);
+    z-index: -1;
+    filter: blur(15px);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+.service-card:hover::before { opacity: 0.8; }
 
-.combined-service-card:hover {
-    transform:translateY(-10px) scale(1.02); 
+.service-card:hover { 
+    transform:translateY(-20px) scale(1.05) rotateZ(1deg); 
     border-color: #00ffff; 
     background:rgba(0, 191, 255, 0.15); 
     box-shadow: 0 15px 40px rgba(0, 255, 255, 0.6);
 }
-
-.service-unit {
-    flex: 1 1 20%; 
-    padding: 20px 15px; 
-    border-right: 1px solid rgba(0, 191, 255, 0.2); 
-    transition: all 0.4s ease;
-}
-
-/* Remove border from the last item */
-.service-unit:last-child {
-    border-right: none;
-}
-/* Style for the list of detailed services */
-.service-unit ul {
-    list-style: none;
-    padding: 10px 0 0 0;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #bdbdbd;
-}
-.service-unit ul li {
-    margin-bottom: 5px;
-}
-.service-unit ul li::before {
-    content: "•";
-    color: #00ffff;
-    font-weight: bold;
-    display: inline-block; 
-    width: 1em;
-    margin-left: -1em;
-}
-
-.service-unit h3 { 
+.service-card h3 { 
     color:#00bfff; 
     margin-bottom:15px; 
-    font-size:1.4rem; 
+    font-size:1.8rem; 
     font-weight:800; 
     text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
     display:flex; 
     align-items:center; 
     justify-content:center; 
 }
-.service-unit h3 i { 
-    font-size:1.8rem; 
-    margin-right:10px; 
+.service-card h3 i { 
+    font-size:2.2rem; 
+    margin-right:15px; 
     color:#00ffff; 
     filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
 }
-.service-unit p { 
-    color:#bdbdbd; 
-    font-size:0.95rem; 
-    display: none;
-}
+.service-card p { color:#bdbdbd; font-size:1.1rem; }
 
-
-/* === PORTFOLIO SECTION (SINGLE CARD STYLES) === */
-.portfolio-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 50px;
-}
-.single-portfolio-card {
-    max-width: 600px;
-    width: 100%;
-    min-height: 400px; 
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.08); 
-    border-radius: 20px;
-    border: 4px solid #00bfff; 
-    text-align: center;
+/* === PORTFOLIO SECTION === */
+.slider-container { position:relative; max-width:1200px; margin:0 auto; padding:0 20px;}
+.slider-track { display:flex; gap:35px; transition:transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.slide { 
+    min-width:350px; 
+    border-radius:20px; 
+    overflow:hidden; 
+    flex-shrink:0; 
+    cursor:pointer; 
+    border:4px solid #00bfff; 
+    position:relative; 
     box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    transition: all 0.6s ease-in-out;
-    opacity: 0;
-    transform: scale(0.9);
+    transition:all 0.6s ease-in-out;
 }
-
-.single-portfolio-card:hover { 
-    transform:scale(1.05); 
+.slide img { width:100%; height:280px; display:block; object-fit:cover; transition:transform 0.6s ease-in-out; }
+.slide:hover { 
+    transform:scale(1.05) translateY(-5px); 
     box-shadow: 0 15px 45px rgba(0, 191, 255, 0.7);
     border-color: #00ffff;
 }
-
-.portfolio-card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.slide:hover img { transform:scale(1.1); filter: brightness(0.7); }
+.coming-soon { 
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; justify-content:center; align-items:center;
+    background:rgba(0,0,0,0.8);
+    color:#00bfff; 
+    font-size:2.5rem; 
+    font-weight:900; 
+    text-shadow:0 0 20px #00bfff; 
+    opacity:0;
+    transition:opacity 0.5s ease-in-out;
+    letter-spacing: 1px;
 }
-
-.portfolio-card-content img {
-    width: 90%;
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    border: 2px solid #00ffff;
-    transition: 0.5s;
-}
-
-.portfolio-card-content h3 {
-    color: #00ffff;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-.portfolio-card-content p {
-    color: #ccc;
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-}
-.view-more-btn {
-    padding: 10px 25px;
-    background: #00bfff;
-    color: #000;
-    font-weight: 700;
-    border-radius: 5px;
-    transition: 0.3s;
-    text-transform: uppercase;
-}
-.view-more-btn:hover {
-    background: #00ffff;
-}
-
+.slide:hover .coming-soon { opacity:1; }
 
 /* === CONTACT FORM SECTION === */
 form { max-width:650px; margin:0 auto; display:flex; flex-direction:column; gap:25px; }
@@ -528,27 +450,10 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
     filter: drop-shadow(0 0 10px #00bfff);
 }
 
-/* === RESPONSIVE DESIGN === */
-@media(max-width:1200px) {
-    /* Services: Max two per row */
-    .service-unit {
-        flex: 1 1 45%; 
-        border-right: none !important;
-        border-bottom: 1px solid rgba(0, 191, 255, 0.2);
-    }
-    .service-unit:nth-last-child(-n+2) { 
-        border-bottom: none !important;
-    }
-    .service-unit:nth-child(even) { 
-        border-right: 1px solid rgba(0, 191, 255, 0.2) !important;
-    }
-    .service-unit:last-child { 
-        border-right: none !important;
-    }
-    #live-clock { margin-left: 10px; }
-    .combined-founder-card { padding: 30px; }
-}
-
+/* ===================================================
+=== MOBILE RESPONSIVE FIXES (Critical Changes) ===
+=================================================== 
+*/
 @media(max-width:900px){
   nav { padding:15px 30px; }
   nav .logo img { height:30px; margin-right:8px; }
@@ -575,37 +480,63 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
   .dynamic-text { font-size:1.8rem; }
   section { padding:80px 20px; }
   section h2 { font-size:2.8rem; margin-bottom:50px; }
-  
-    /* FOUNDERS: Forces Vertical Stack for Mobile */
-    .founder-images {
-        flex-direction: column; /* Stacks vertically */
-        gap: 40px;
+    
+    /* FIX: Founders to scroll horizontally */
+  .founders-container { 
+        flex-wrap: nowrap; /* Prevent stacking */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
+        padding-bottom: 20px; /* Space for scrollbar */
+        justify-content: flex-start; /* Align items to start for scroll */
+        gap: 30px; /* Reduced gap slightly for mobile space */
+        margin: 0 -20px; /* Pull into padding for edge-to-edge scroll */
+        padding-left: 20px; /* Add padding to the start */
+        padding-right: 20px; /* Add padding to the end */
     }
-    .combined-founder-card {
-        padding: 30px 20px;
+    .founders-container::-webkit-scrollbar { display: none; } /* Hide scrollbar */
+    .founders-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .founder-card { 
+        min-width: 250px; /* Ensure cards are not too small */
+        width: 250px; /* Maintain fixed width */
+        max-width: unset; /* Remove max-width constraint */
     }
-    .founder-unit .img-wrapper {
-        width: 180px;
-        height: 180px;
+
+    /* FIX: Services to scroll horizontally */
+  .services { 
+        flex-wrap: nowrap; /* Prevent stacking */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
+        padding-bottom: 20px; /* Space for scrollbar */
+        justify-content: flex-start; /* Align items to start for scroll */
+        gap: 30px; /* Reduced gap slightly for mobile space */
+        margin: 0 -20px; /* Pull into section padding for edge-to-edge scroll */
+        padding-left: 20px; /* Add padding to the start */
+        padding-right: 20px; /* Add padding to the end */
+    }
+    .services::-webkit-scrollbar { display: none; } /* Hide scrollbar */
+    .services { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .service-card { 
+        min-width: 280px; /* Slightly smaller min-width for mobile */
+        width: 280px; /* Fixed width for consistent scroll */
+        padding: 40px;
     }
     
-    /* Services - Single column on small devices */
-    .service-unit {
-        flex: 1 1 100%; 
-        border-right: none !important;
-        border-bottom: 1px solid rgba(0, 191, 255, 0.2) !important;
+    /* Portfolio section already has these, but reinforcing */
+    .slider-container {
+        overflow-x: scroll; 
+        padding: 0;
+        margin: 0 -20px; 
     }
-    .service-unit:last-child {
-        border-bottom: none !important;
+    .slider-track {
+        padding: 0 20px; 
+        margin-bottom: 20px;
     }
-    .services {
-        padding: 0 0;
+  .slide { 
+        min-width: 80%; 
+        width: 80%; /* Adjusted for better mobile view */
     }
-    #live-clock { display: none; } /* HIDDEN ON PHONE/MOBILE */
-    
-    /* Portfolio - Ensure single card scales nicely */
-    .single-portfolio-card { max-width: 100%; padding: 20px; }
-    .portfolio-card-content img { max-height: 200px; }
 }
 
 @media(max-width:600px){
@@ -614,13 +545,24 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
     header .hero-content h1 { font-size:2.8rem; }
     header .hero-content p.tagline { font-size:1.2rem; }
     .dynamic-text { font-size:1.4rem; }
+    .hero-img { width:180px; height:180px; margin-top:30px; }
     section h2 { font-size:2.2rem; margin-bottom:40px; }
     
-    .service-unit h3 { font-size:1.5rem; }
-    .service-unit h3 i { font-size:1.8rem; margin-right:10px; }
+    .founder-card { min-width: 220px; width: 220px; }
+    .founder-card .img-wrapper { width: 160px; height: 160px; }
+    .founder-card h4 { font-size: 1.4rem; }
+
+    .service-card { min-width: 250px; width: 250px; padding:30px; }
+    .service-card h3 { font-size:1.5rem; }
+    .service-card h3 i { font-size:1.8rem; margin-right:10px; }
+    .service-card p { font-size:1rem; }
     
+    .slide { min-width: 90%; width: 90%; } /* Wider slides for smaller screens */
+
     .social-icons { font-size:1.5rem; }
     form { gap:15px; }
+    input, textarea { padding:14px; font-size:1rem; }
+    .submit-btn { padding:14px; }
 }
 
 </style>
@@ -629,9 +571,9 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
 
 <nav>
   <div class="logo">
-    <img src="logo.png" alt="DNA Designs Logo">
-    DNA Designs
-  </div>
+    <img src="logo.png" alt="DNA Designs Logo">
+    DNA Designs
+  </div>
   <div class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></div>
   <ul id="nav-links">
     <li><a href="#home">Home</a></li>
@@ -639,7 +581,6 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
     <li><a href="#services">Services</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#contact">Contact</a></li>
-    <div id="live-clock"></div>
   </ul>
 </nav>
 
@@ -647,48 +588,46 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
   <video autoplay muted loop>
     <source src="video-background.mp4" type="video/mp4">
   </video>
-  <div id="particles-js"></div>   <div class="hero-content">
+  <div id="particles-js"></div> 
+  <div class="hero-content">
     <h1>DNA Designs</h1>
     <p class="tagline">Your Vision, Our Masterpiece. Designed in our DNA.</p>
-    <h2 class="dynamic-text">Brand & Logo Design</h2>
+    <h2 class="dynamic-text">Brand Logos</h2>
     <button class="btn">Get In Touch</button>
+    <img src="founder-photo.jpg" alt="Founder" class="hero-img">
   </div>
 </header>
 
 ---
 
 <section id="about">
-  <h2>About DNA Designs</h2>
-    <p class="about-intro-text">
-        DNA Designs was born from a belief that creativity and precision can co-exist. We don’t just design — we craft the digital identity that defines you.
+  <h2>ABOUT DNA DESIGNS</h2>
+    <p style="max-width: 600px; margin: 0 auto 50px auto; text-align: center; font-size: 1.1rem;">
+        DNA Designs was born from a belief that creativity and precision can co-exist. We don't just design — we craft the digital identity that defines you.
     </p>
-    
-  <h2>Meet Our Founders</h2>
-  <div class="founders-container">
-        <div class="combined-founder-card">
-            <div class="founder-images">
-                <div class="founder-unit">
-                    <div class="img-wrapper">
-                        <img src="founder1.jpg" alt="Diksha Gupta">
-                    </div>
-                    <h4>Diksha Gupta</h4>
-                </div>
-                
-                <div class="founder-unit">
-                    <div class="img-wrapper">
-                        <img src="founder3.jpg" alt="Nayan Patel">
-                    </div>
-                    <h4>Nayan Patel</h4>
-                </div>
+    <h2 style="margin-top: 50px;">MEET OUR FOUNDERS</h2>
 
-                <div class="founder-unit">
-                    <div class="img-wrapper">
-                        <img src="founder2.jpg" alt="Adarsh Roy">
-                    </div>
-                    <h4>Adarsh Roy</h4>
-                </div>
-            </div>
-        </div>
+  <div class="founders-container">
+    <div class="founder-card">
+        <div class="img-wrapper">
+            <img src="founder1.jpg" alt="Diksha Gupta">
+        </div>
+      <h4>Diksha Gupta</h4>
+    </div>
+    
+    <div class="founder-card">
+        <div class="img-wrapper">
+            <img src="founder3.jpg" alt="Nayan Patel">
+        </div>
+      <h4>Nayan Patel</h4>
+    </div>
+
+    <div class="founder-card">
+        <div class="img-wrapper">
+            <img src="founder2.jpg" alt="Adarsh Roy">
+        </div>
+      <h4>Adarsh Roy</h4>
+    </div>
   </div>
 </section>
 
@@ -697,92 +636,39 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
 <section id="services">
   <h2>Our Services</h2>
   <div class="services">
-        <div class="combined-service-card">
-            <div class="service-unit">
-                <h3><i class="fas fa-palette"></i> Brand & Logo Design</h3>
-                <ul>
-                    <li>Custom Logo Design</li>
-                    <li>Brand Identity Kits</li>
-                    <li>Rebranding / Logo Concepts</li>
-                    <li>Symbol + Typography Logos</li>
-                    <li>3D / Animated Logos</li>
-                </ul>
-            </div>
-            <div class="service-unit">
-                <h3><i class="fas fa-video"></i> Video & Motion Graphics</h3>
-                <ul>
-                    <li>Promo Reels</li>
-                    <li>Event Recaps / Cinematic Montages</li>
-                    <li>Product Edits</li>
-                    <li>Motion Graphics</li>
-                    <li>Visual Storytelling</li>
-                </ul>
-            </div>
-            <div class="service-unit">
-                <h3><i class="fas fa-desktop"></i> Web & UX Design</h3>
-                <ul>
-                    <li>Websites</li>
-                    <li>Business Pages / Portfolio Sites</li>
-                    <li>Responsive & Modern Interactive Landing Pages</li>
-                </ul>
-            </div>
-            <div class="service-unit">
-                <h3><i class="fas fa-bullhorn"></i> Print & Campaign Media</h3>
-                <ul>
-                    <li>Event Posters / College & Corporate Flyers</li>
-                    <li>Campaign Designs / Social Media Banners</li>
-                    <li>Minimal Infographics / Designs</li>
-                    <li>Corporate & Academic Decks</li>
-                </ul>
-            </div>
-             <div class="service-unit">
-                <h3><i class="fas fa-pencil-ruler"></i> Digital Art & Pitch Decks</h3>
-                <ul>
-                    <li>Start-up Presentations / Investor Decks / Pitch Decks</li>
-                    <li>PowerPoint & Canva Templates</li>
-                    <li>Digital Sketches / Custom Characters / Illustrations</li>
-                    <li>Portrait Art / Concept-Based Artwork</li>
-                    <li>Photo-to-Art Conversions / Couple / Family Art</li>
-                    <li>Vector Art</li>
-                </ul>
-            </div>
-        </div>
+    <div class="service-card"><h3><i class="fas fa-palette"></i> Brand Logos</h3><p>Unique logo design that reflects your brand identity with precision and creativity.</p></div>
+    <div class="service-card"><h3><i class="fas fa-video"></i> Video Editing</h3><p>Professional video production and editing for marketing, events, and social media.</p></div>
+    <div class="service-card"><h3><i class="fas fa-desktop"></i> Web Design</h3><p>Crafting fast, responsive, and visually stunning websites tailored to your needs.</p></div>
+    <div class="service-card"><h3><i class="fas fa-bullhorn"></i> Posters & Flyers</h3><p>Captivating visuals for promotions, high-impact events, and engaging campaigns.</p></div>
   </div>
 </section>
 
 ---
 
 <section id="portfolio">
-  <h2>Our Portfolio</h2>
-    <div class="portfolio-container">
-        <div class="single-portfolio-card">
-            <div class="portfolio-card-content">
-                <img src="portfolio1.png" alt="Featured Portfolio Project">
-                <h3>Featured Project: Logo Identity</h3>
-                <p>A glimpse into our recent work crafting a bold, modern brand identity for a tech startup. See our full range of styles below!</p>
-                <a href="#" class="view-more-btn">View All Projects</a>
-            </div>
-        </div>
-    </div>
+  <h2>OUR PORTFOLIO</h2>
+  <div class="slider-container">
+    <div class="slider-track">
+      <div class="slide"><img src="portfolio1.jpg" alt="Portfolio Image 1"><div class="coming-soon">Coming Soon</div></div>
+      <div class="slide"><img src="portfolio2.jpg" alt="Portfolio Image 2"><div class="coming-soon">Coming Soon</div></div>
+      <div class="slide"><img src="portfolio3.jpg" alt="Portfolio Image 3"><div class="coming-soon">Coming Soon</div></div>
+      <div class="slide"><img src="portfolio4.jpg" alt="Portfolio Image 4"><div class="coming-soon">Coming Soon</div></div>
+    </div>
+  </div>
 </section>
 
 ---
 
 <section id="contact">
-  <h2>Connect With Us</h2>
-  <form action="https://formspree.io/f/xnngrjww" method="POST">
+  <h2>CONNECT WITH US</h2>
+  <form action="https://formspree.io/f/your-form-id" method="POST">
     <input type="text" name="name" placeholder="Your Name" required>
     <input type="email" name="email" placeholder="Email Address" required>
-    <input type="tel" name="mobile" placeholder="Mobile Number" value="9111288148" required>
+    <input type="tel" name="mobile" placeholder="Mobile Number" required>
     <input type="text" name="city" placeholder="City" required>
     <textarea name="details" rows="5" placeholder="Tell us about your design project..." required></textarea>
     <button type="submit" class="submit-btn">Send Message</button>
   </form>
-    <div style="text-align: center; margin-top: 30px; font-size: 1.1rem; color: #00bfff;">
-        <p>Call Us: <a href="tel:9111288148" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">+91 9111288148</a></p>
-        <p>Email: <a href="mailto:dnadesigns.official@gmail.com" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">dnadesigns.official@gmail.com</a></p>
-        <p>Website: <a href="https://dnadesigns.co.in" target="_blank" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">dnadesigns.co.in</a></p>
-    </div>
 </section>
 
 ---
@@ -790,50 +676,21 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
 <footer>
   <p>© 2025 DNA Designs. All rights reserved. | Crafted with <i class="fas fa-heart" style="color:#00ffff;"></i> by DNA Designs</p>
   <div class="social-icons">
-    <p style="font-size: 1rem; color: #a0a0a0; margin-bottom: 10px;">Like, Share & Follow Us: @dnadesigns.official</p>
-    
-        <a href="https://www.instagram.com/dnadesigns.official?igsh=emNwOTVnZTVrcXFr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    
-        <a href="https://www.facebook.com/share/1CmLU2JvKE/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-    
-        <a href="https://wa.me/919111288148" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    
-    <a href="mailto:dnadesigns.official@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-  </div>
+    <a href="YOUR_INSTAGRAM_URL" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="YOUR_FACEBOOK_URL" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="YOUR_WHATSAPP_URL" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
-// === LIVE CLOCK FUNCTIONALITY ===
-function updateClock() {
-    const now = new Date();
-    
-    // Format the time (HH:MM:SS)
-    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-    const timeString = now.toLocaleTimeString('en-US', timeOptions);
-    
-    // Format the date (DD/MM/YYYY)
-    const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    const dateString = now.toLocaleDateString('en-IN', dateOptions);
-
-    const clockElement = document.getElementById('live-clock');
-    if (clockElement) {
-        // Display both date and time
-        clockElement.textContent = `${dateString} | ${timeString}`;
-    }
-}
-
-// Update the clock immediately and then every second
-updateClock();
-setInterval(updateClock, 1000); 
-
 // === NAVBAR TOGGLE ===
 const menuToggle = document.getElementById('menu-toggle');
 const navLinks = document.getElementById('nav-links');
 
 menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-    menuToggle.classList.toggle('active');
+    navLinks.classList.toggle('show');
+    menuToggle.classList.toggle('active');
 });
 
 // Close nav when a link is clicked
@@ -841,90 +698,101 @@ document.querySelectorAll('nav ul li a').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
     navLinks.classList.remove('show');
-    menuToggle.classList.remove('active');
+    menuToggle.classList.remove('active');
     document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
   });
 });
 
 // === SCROLL ANIMATIONS ===
-const combinedCard = document.querySelector('.combined-founder-card'); 
-const combinedServiceCard = document.querySelector('.combined-service-card');
-const singlePortfolioCard = document.querySelector('.single-portfolio-card'); 
+const animateOnScroll = (elements, offset = 50, delayMultiplier = 0.2) => {
+    const scrollY = window.scrollY + window.innerHeight;
+    elements.forEach((el, i) => {
+        if (scrollY > el.offsetTop + offset) {
+            el.style.opacity = 1;
+            el.style.transform = 'translateY(0)';
+            el.style.transitionDelay = `${i * delayMultiplier}s`;
+        }
+    });
+};
+
+const founders = document.querySelectorAll('.founder-card');
+const services = document.querySelectorAll('.service-card');
 
 window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY + window.innerHeight;
-
-    if (combinedCard) {
-        if (scrollY > combinedCard.offsetTop + 50) {
-            combinedCard.style.opacity = 1;
-            combinedCard.style.transform = 'translateY(0)';
-        }
-    }
-    
-    if (combinedServiceCard) {
-        if (scrollY > combinedServiceCard.offsetTop + 50) {
-            combinedServiceCard.style.opacity = 1;
-            combinedServiceCard.style.transform = 'translateY(0)';
-        }
-    }
-    
-    // Animate the single portfolio card
-    if (singlePortfolioCard) {
-        if (scrollY > singlePortfolioCard.offsetTop + 100) {
-            singlePortfolioCard.style.opacity = 1;
-            singlePortfolioCard.style.transform = 'scale(1)';
-        }
-    }
+  animateOnScroll(founders, 50, 0.2);
+  animateOnScroll(services, 50, 0.2);
 });
 
+// Initial check on load for elements already in view
 document.addEventListener('DOMContentLoaded', () => {
-    const scrollY = window.scrollY + window.innerHeight;
-
-    if (combinedCard && scrollY > combinedCard.offsetTop + 50) {
-        combinedCard.style.opacity = 1;
-        combinedCard.style.transform = 'translateY(0)';
-    }
-
-    if (combinedServiceCard && scrollY > combinedServiceCard.offsetTop + 50) {
-        combinedServiceCard.style.opacity = 1;
-        combinedServiceCard.style.transform = 'translateY(0)';
-    }
-
-    if (singlePortfolioCard && scrollY > singlePortfolioCard.offsetTop + 100) {
-        singlePortfolioCard.style.opacity = 1;
-        singlePortfolioCard.style.transform = 'scale(1)';
-    }
+    animateOnScroll(founders, 50, 0.2);
+    animateOnScroll(services, 50, 0.2);
 });
 
 
-// === DYNAMIC HERO TEXT (Speed set to 2 seconds) ===
-const texts = ["Brand & Logo Design", "Video & Motion Graphics", "Web & UX Design", "Print & Campaign Media", "Digital Art & Pitch Decks"];
+// === DYNAMIC HERO TEXT ===
+const texts = ["Brand Logos", "Web Design", "Video Editing", "Posters & Flyers"];
 let textIndex = 0;
 const dynamicTextElement = document.querySelector('.dynamic-text');
 
 setInterval(() => {
-    dynamicTextElement.classList.add('hide'); 
-    setTimeout(() => {
-        dynamicTextElement.textContent = texts[textIndex];
-        dynamicTextElement.classList.remove('hide'); 
-        textIndex = (textIndex + 1) % texts.length;
-    }, 500); 
-}, 2000); 
+    dynamicTextElement.classList.add('hide'); 
+    setTimeout(() => {
+        dynamicTextElement.textContent = texts[textIndex];
+        dynamicTextElement.classList.remove('hide'); 
+        textIndex = (textIndex + 1) % texts.length;
+    }, 500); 
+}, 3000); 
 
 const style = document.createElement('style');
 style.innerHTML = `
-    .dynamic-text {
-        transition: opacity 0.5s ease-in-out;
-    }
-    .dynamic-text.hide {
-        opacity: 0;
-    }
+    .dynamic-text {
+        transition: opacity 0.5s ease-in-out;
+    }
+    .dynamic-text.hide {
+        opacity: 0;
+    }
 `;
 document.head.appendChild(style);
 
 
-// NOTE: Portfolio infinite scroll script removed as requested.
-// The main particles.js configuration remains active.
+// === PORTFOLIO INFINITE SCROLL ===
+const sliderTrack = document.querySelector(".slider-track");
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
+const totalSlides = slides.length;
+
+slides.forEach(slide => {
+    sliderTrack.appendChild(slide.cloneNode(true));
+});
+
+let autoSlideInterval;
+
+const startAutoSlide = () => {
+    autoSlideInterval = setInterval(() => {
+        const slideWidth = slides[0].offsetWidth + 35; 
+        slideIndex++;
+        sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+
+        if (slideIndex >= totalSlides) {
+            setTimeout(() => {
+                sliderTrack.style.transition = 'none'; 
+                slideIndex = 0;
+                sliderTrack.style.transform = `translateX(0)`;
+                setTimeout(() => {
+                    sliderTrack.style.transition = 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; 
+                }, 50); 
+            }, 700); 
+        }
+    }, 4000); 
+};
+
+startAutoSlide(); 
+sliderTrack.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+sliderTrack.addEventListener('mouseleave', startAutoSlide);
+
+
+// === PARTICLE.JS CONFIGURATION ===
 particlesJS("particles-js", {
     "particles": {
         "number": {
@@ -935,7 +803,7 @@ particlesJS("particles-js", {
             }
         },
         "color": {
-            "value": ["#00bfff", "#00ffff", "#f0f0f0"] 
+            "value": ["#00bfff", "#00ffff", "#f0f0f0"] /* Blue Neon Colors */
         },
         "shape": {
             "type": "circle",
