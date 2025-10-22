@@ -198,9 +198,9 @@ nav ul li a:hover {
 }
 nav ul li a:hover::after { width:100%; }
 
-/* Live Clock Styling - FIX APPLIED HERE */
+/* Live Clock Styling - FIX APPLIED HERE (Width increased) */
 #live-clock {
-    display: inline-block; /* Makes it shrink to content width */
+    display: inline-block; 
     font-size: 0.9rem;
     font-weight: 700;
     color: #00bfff;
@@ -210,8 +210,8 @@ nav ul li a:hover::after { width:100%; }
     border: 1px solid #00bfff;
     border-radius: 5px;
     transition: all 0.3s;
-    white-space: nowrap; /* Prevents wrapping */
-    width: 200px; /* INCREASED WIDTH FOR SAFER FIT */
+    white-space: nowrap; 
+    width: 200px; 
     text-align: center;
 }
 #live-clock:hover {
@@ -221,7 +221,7 @@ nav ul li a:hover::after { width:100%; }
 
 /* === HAMBURGER MENU STYLES === */
 .menu-toggle { 
-    display: none; /* Hidden on desktop */
+    display: none; 
     flex-direction: column; 
     gap: 6px; 
     cursor: pointer; 
@@ -940,7 +940,7 @@ footer::after {
   <form action="https://formspree.io/f/xnngrjww" method="POST" data-aos="fade-up" data-aos-delay="100">
     <input type="text" name="name" placeholder="Your Name" required>
     <input type="email" name="email" placeholder="Email Address" required>
-    <input type="tel" name="mobile" placeholder="Mobile Number" value="9111288148" required>
+    <input type="tel" name="mobile" placeholder="Mobile Number" required>
     <input type="text" name="city" placeholder="City" required>
     <textarea name="details" rows="5" placeholder="Tell us about your design project..." required></textarea>
     <button type="submit" class="submit-btn">Send Message</button>
@@ -975,19 +975,7 @@ footer::after {
 function updateClock() {
     const now = new Date();
     
-    // Formatting the date and time
-    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-    const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
-
-    // Get time/period separately to ensure clean formatting
-    let timeString = now.toLocaleTimeString('en-US', timeOptions);
-    const dateString = now.toLocaleDateString('en-IN', dateOptions);
-    
-    // Clean up spaces and format: DD/MM/YYYY | HH:MM:SS PM
-    // The locale-specific formatting for toLocaleTimeString can be tricky with split.
-    // Let's use string manipulation to guarantee the desired format (DD/MM/YYYY | HH:MM:SS PM)
-    
-    // Manual time component extraction and padding for robustness
+    // Manual time component extraction and padding for robust 12-hour format
     let hours = now.getHours();
     let minutes = now.getMinutes();
     let seconds = now.getSeconds();
@@ -997,7 +985,12 @@ function updateClock() {
     minutes = minutes < 10 ? '0' + minutes : minutes;
     seconds = seconds < 10 ? '0' + seconds : seconds;
     
-    const formattedDate = dateString.replace(/\//g, '/'); // ensure standard date separators
+    // Date formatting (DD/MM/YYYY)
+    const day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+    const month = (now.getMonth() + 1) < 10 ? '0' + (now.getMonth() + 1) : (now.getMonth() + 1);
+    const year = now.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+    
     const formattedTime = `${hours}:${minutes}:${seconds}${period}`;
 
     const finalTimeString = `${formattedDate} | ${formattedTime}`;
