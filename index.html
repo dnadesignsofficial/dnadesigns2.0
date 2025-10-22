@@ -551,7 +551,6 @@ section h2 {
     flex-direction: column; /* Allows adding text above/below the card */
     align-items: center;
 }
-/* Removed .portfolio-intro as it was the duplicate content */
 
 .single-portfolio-card {
     max-width: 600px;
@@ -783,6 +782,69 @@ footer::after {
 /* Small util for animated entrances when JS triggers */
 .revealed { opacity:1 !important; transform:none !important; transition: all 0.9s cubic-bezier(0.2,0.9,0.2,1); }
 
+/* ======================================= */
+/* === DIWALI WISH OVERLAY CSS (NEW) === */
+/* ======================================= */
+
+/* Main Banner Container */
+#diwali-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Slightly transparent black overlay */
+    z-index: 9999; /* Ensure it is above all other content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    pointer-events: none; /* Allows user to interact with the page underneath after animation fades */
+    opacity: 1;
+    transition: opacity 2s ease-out; /* Fade-out effect */
+}
+
+/* Text Styling */
+#diwali-banner h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: #ffaa00; /* Deep golden color */
+    text-shadow: 0 0 20px rgba(255, 165, 0, 0.8), 0 0 40px rgba(255, 69, 0, 0.6); /* Fire/light glow */
+    animation: textFlicker 1.5s infinite alternate;
+    margin-bottom: 20px;
+}
+#diwali-banner p {
+    font-size: 2rem;
+    color: #ffd700; /* Gold color */
+    text-shadow: 0 0 10px #ffd700;
+}
+
+/* Text Flicker Animation (Diya/Candle effect) */
+@keyframes textFlicker {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.95; transform: scale(1.01); }
+}
+
+
+/* Confetti/Party Popper Styles */
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #ff0000; /* Default color: Red */
+    border-radius: 50%;
+    opacity: 0; /* Hidden initially */
+}
+
+@media(max-width:600px){
+    #diwali-banner h1 {
+        font-size: 3rem;
+    }
+    #diwali-banner p {
+        font-size: 1.2rem;
+    }
+}
 </style>
 </head>
 <body>
@@ -1204,6 +1266,86 @@ window.addEventListener('load', () => {
         // handled by AOS
     });
 });
+
+/* ======================================= */
+/* === DIWALI WISH OVERLAY JS (NEW) === */
+/* ======================================= */
+
+// 1. Create the Diwali Banner and Text
+function createDiwaliBanner() {
+    const banner = document.createElement('div');
+    banner.id = 'diwali-banner';
+    
+    // Add text content
+    banner.innerHTML = `
+        <h1>Happy Diwali! 🎉</h1>
+        <p>Wishing you joy and prosperity from DNA Designs!</p>
+    `;
+    
+    document.body.appendChild(banner);
+    
+    // Start Confetti Animation right after the banner is created
+    confettiBurst(200); // Increased count for bigger blast
+
+    // Hide the banner and remove it after a delay (e.g., 5 seconds)
+    setTimeout(() => {
+        banner.style.opacity = '0';
+        // Remove the banner element completely after the transition ends
+        setTimeout(() => {
+            banner.remove();
+        }, 2000); // 2 seconds fade-out time (matches CSS transition)
+    }, 5000); // Display for 5 seconds
+}
+
+// 2. Confetti Animation Logic
+const CONFETTI_COLORS = [
+    '#ffaa00', // Deep Orange/Gold
+    '#ffd700', // Gold
+    '#ff4500', // Red-Orange
+    '#00ffff', // Cyan (Matching existing theme)
+    '#00bfff'  // Deep Sky Blue (Matching existing theme)
+];
+
+function confettiBurst(count) {
+    const banner = document.getElementById('diwali-banner');
+    if (!banner) return;
+
+    for (let i = 0; i < count; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+
+        // Random starting position (mostly centered, increased spread)
+        const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 250; // Spread increased from 150 to 250
+        const startY = window.innerHeight / 2 + (Math.random() - 0.5) * 250; // Spread increased from 150 to 250
+        
+        confetti.style.left = `${startX}px`;
+        confetti.style.top = `${startY}px`;
+        confetti.style.backgroundColor = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+        confetti.style.opacity = '1';
+
+        banner.appendChild(confetti);
+
+        // Apply burst animation
+        const xDirection = (Math.random() - 0.5) * 1000; // Horizontal throw distance increased
+        const yDirection = -(Math.random() * 600 + 150); // Upward throw distance increased
+
+        confetti.animate([
+            { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+            { transform: `translate(${xDirection}px, ${yDirection}px) rotate(720deg)`, opacity: 1 },
+            { transform: `translate(${xDirection}px, 800px) rotate(1080deg)`, opacity: 0 } // Fall down and fade out
+        ], {
+            duration: Math.random() * 3000 + 2000, // Duration between 2s and 5s
+            easing: 'ease-out',
+            delay: Math.random() * 500, // Stagger the start time
+        }).onfinish = () => {
+            confetti.remove(); // Clean up confetti elements after animation
+        };
+    }
+}
+
+
+// Call the function on load (This will run after all existing script logic)
+document.addEventListener('DOMContentLoaded', createDiwaliBanner);
 
 </script>
 </body>
