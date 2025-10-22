@@ -136,7 +136,7 @@ header video {
     opacity:0.3; 
     filter: grayscale(80%) brightness(0.6); 
 }
-#particles-js { 
+#particles-js { /* THIS IS THE MAIN BACKGROUND ANIMATION CONTAINER */
     position:absolute; width:100%; height:100%; z-index:-1; 
 }
 .hero-content { 
@@ -399,40 +399,72 @@ section h2 {
 }
 
 
-/* === PORTFOLIO SECTION === */
-.slider-container { position:relative; max-width:1200px; margin:0 auto; padding:0 20px;}
-.slider-track { display:flex; gap:35px; transition:transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); } /* TRANSITION SPEED INCREASED HERE */
-.slide { 
-    min-width:350px; 
-    border-radius:20px; 
-    overflow:hidden; 
-    flex-shrink:0; 
-    cursor:pointer; 
-    border:4px solid #00bfff; 
-    position:relative; 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    transition:all 0.6s ease-in-out;
+/* === PORTFOLIO SECTION (SINGLE CARD STYLES) === */
+.portfolio-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
 }
-.slide img { width:100%; height:280px; display:block; object-fit:cover; transition:transform 0.6s ease-in-out; }
-.slide:hover { 
-    transform:scale(1.05) translateY(-5px); 
+.single-portfolio-card {
+    max-width: 600px;
+    width: 100%;
+    min-height: 400px; 
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.08); 
+    border-radius: 20px;
+    border: 4px solid #00bfff; 
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    transition: all 0.6s ease-in-out;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.single-portfolio-card:hover { 
+    transform:scale(1.05); 
     box-shadow: 0 15px 45px rgba(0, 191, 255, 0.7);
     border-color: #00ffff;
 }
-.slide:hover img { transform:scale(1.1); filter: brightness(0.7); }
-.coming-soon { 
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    display:flex; justify-content:center; align-items:center;
-    background:rgba(0,0,0,0.8);
-    color:#00bfff; 
-    font-size:2.5rem; 
-    font-weight:900; 
-    text-shadow:0 0 20px #00bfff; 
-    opacity:0;
-    transition:opacity 0.5s ease-in-out;
-    letter-spacing: 1px;
+
+.portfolio-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.slide:hover .coming-soon { opacity:1; }
+
+.portfolio-card-content img {
+    width: 90%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #00ffff;
+    transition: 0.5s;
+}
+
+.portfolio-card-content h3 {
+    color: #00ffff;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+.portfolio-card-content p {
+    color: #ccc;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+.view-more-btn {
+    padding: 10px 25px;
+    background: #00bfff;
+    color: #000;
+    font-weight: 700;
+    border-radius: 5px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+.view-more-btn:hover {
+    background: #00ffff;
+}
+
 
 /* === CONTACT FORM SECTION === */
 form { max-width:650px; margin:0 auto; display:flex; flex-direction:column; gap:25px; }
@@ -514,6 +546,7 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
         border-right: none !important;
     }
     #live-clock { margin-left: 10px; }
+    .combined-founder-card { padding: 30px; }
 }
 
 @media(max-width:900px){
@@ -542,7 +575,19 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
   .dynamic-text { font-size:1.8rem; }
   section { padding:80px 20px; }
   section h2 { font-size:2.8rem; margin-bottom:50px; }
-  .slide { min-width:90%; }
+  
+    /* FOUNDERS: Forces Vertical Stack for Mobile */
+    .founder-images {
+        flex-direction: column; /* Stacks vertically */
+        gap: 40px;
+    }
+    .combined-founder-card {
+        padding: 30px 20px;
+    }
+    .founder-unit .img-wrapper {
+        width: 180px;
+        height: 180px;
+    }
     
     /* Services - Single column on small devices */
     .service-unit {
@@ -557,6 +602,10 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
         padding: 0 0;
     }
     #live-clock { display: none; } /* HIDDEN ON PHONE/MOBILE */
+    
+    /* Portfolio - Ensure single card scales nicely */
+    .single-portfolio-card { max-width: 100%; padding: 20px; }
+    .portfolio-card-content img { max-height: 200px; }
 }
 
 @media(max-width:600px){
@@ -598,8 +647,7 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
   <video autoplay muted loop>
     <source src="video-background.mp4" type="video/mp4">
   </video>
-  <div id="particles-js"></div> 
-  <div class="hero-content">
+  <div id="particles-js"></div>   <div class="hero-content">
     <h1>DNA Designs</h1>
     <p class="tagline">Your Vision, Our Masterpiece. Designed in our DNA.</p>
     <h2 class="dynamic-text">Brand & Logo Design</h2>
@@ -653,49 +701,49 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
             <div class="service-unit">
                 <h3><i class="fas fa-palette"></i> Brand & Logo Design</h3>
                 <ul>
-                    [cite_start]<li>Custom Logo Design [cite: 1]</li>
-                    [cite_start]<li>Brand Identity Kits [cite: 1]</li>
-                    [cite_start]<li>Rebranding / Logo Concepts [cite: 2]</li>
-                    [cite_start]<li>Symbol + Typography Logos [cite: 3]</li>
-                    [cite_start]<li>3D / Animated Logos [cite: 4]</li>
+                    <li>Custom Logo Design</li>
+                    <li>Brand Identity Kits</li>
+                    <li>Rebranding / Logo Concepts</li>
+                    <li>Symbol + Typography Logos</li>
+                    <li>3D / Animated Logos</li>
                 </ul>
             </div>
             <div class="service-unit">
                 <h3><i class="fas fa-video"></i> Video & Motion Graphics</h3>
                 <ul>
-                    [cite_start]<li>Promo Reels [cite: 10]</li>
-                    [cite_start]<li>Event Recaps / Cinematic Montages [cite: 11, 12]</li>
-                    [cite_start]<li>Product Edits [cite: 13]</li>
-                    [cite_start]<li>Motion Graphics [cite: 14]</li>
-                    [cite_start]<li>Visual Storytelling [cite: 25]</li>
+                    <li>Promo Reels</li>
+                    <li>Event Recaps / Cinematic Montages</li>
+                    <li>Product Edits</li>
+                    <li>Motion Graphics</li>
+                    <li>Visual Storytelling</li>
                 </ul>
             </div>
             <div class="service-unit">
                 <h3><i class="fas fa-desktop"></i> Web & UX Design</h3>
                 <ul>
-                    [cite_start]<li>Websites [cite: 15]</li>
-                    [cite_start]<li>Business Pages / Portfolio Sites [cite: 16]</li>
-                    [cite_start]<li>Responsive & Modern Interactive Landing Pages [cite: 17]</li>
+                    <li>Websites</li>
+                    <li>Business Pages / Portfolio Sites</li>
+                    <li>Responsive & Modern Interactive Landing Pages</li>
                 </ul>
             </div>
             <div class="service-unit">
                 <h3><i class="fas fa-bullhorn"></i> Print & Campaign Media</h3>
                 <ul>
-                    [cite_start]<li>Event Posters / College & Corporate Flyers [cite: 5, 6]</li>
-                    [cite_start]<li>Campaign Designs / Social Media Banners [cite: 7, 9]</li>
-                    [cite_start]<li>Minimal Infographics / Designs [cite: 19]</li>
-                    [cite_start]<li>Corporate & Academic Decks [cite: 18, 25]</li>
+                    <li>Event Posters / College & Corporate Flyers</li>
+                    <li>Campaign Designs / Social Media Banners</li>
+                    <li>Minimal Infographics / Designs</li>
+                    <li>Corporate & Academic Decks</li>
                 </ul>
             </div>
              <div class="service-unit">
                 <h3><i class="fas fa-pencil-ruler"></i> Digital Art & Pitch Decks</h3>
                 <ul>
-                    [cite_start]<li>Start-up Presentations / Investor Decks / Pitch Decks [cite: 18, 26]</li>
-                    [cite_start]<li>PowerPoint & Canva Templates [cite: 19]</li>
-                    [cite_start]<li>Digital Sketches / Custom Characters / Illustrations [cite: 20, 21]</li>
-                    [cite_start]<li>Portrait Art / Concept-Based Artwork [cite: 24]</li>
-                    [cite_start]<li>Photo-to-Art Conversions / Couple / Family Art [cite: 22, 23]</li>
-                    [cite_start]<li>Vector Art [cite: 21]</li>
+                    <li>Start-up Presentations / Investor Decks / Pitch Decks</li>
+                    <li>PowerPoint & Canva Templates</li>
+                    <li>Digital Sketches / Custom Characters / Illustrations</li>
+                    <li>Portrait Art / Concept-Based Artwork</li>
+                    <li>Photo-to-Art Conversions / Couple / Family Art</li>
+                    <li>Vector Art</li>
                 </ul>
             </div>
         </div>
@@ -706,14 +754,16 @@ footer a:hover { color:#00ffff; text-shadow: 0 0 8px #00ffff; }
 
 <section id="portfolio">
   <h2>Our Portfolio</h2>
-  <div class="slider-container">
-    <div class="slider-track">
-      <div class="slide"><img src="portfolio1.png" alt="Portfolio Image 1"><div class="coming-soon">Coming Soon</div></div>
-      <div class="slide"><img src="portfolio2.png" alt="Portfolio Image 2"><div class="coming-soon">Coming Soon</div></div>
-      <div class="slide"><img src="portfolio3.png" alt="Portfolio Image 3"><div class="coming-soon">Coming Soon</div></div>
-      <div class="slide"><img src="portfolio4.png" alt="Portfolio Image 4"><div class="coming-soon">Coming Soon</div></div>
-    </div>
-  </div>
+    <div class="portfolio-container">
+        <div class="single-portfolio-card">
+            <div class="portfolio-card-content">
+                <img src="portfolio1.png" alt="Featured Portfolio Project">
+                <h3>Featured Project: Logo Identity</h3>
+                <p>A glimpse into our recent work crafting a bold, modern brand identity for a tech startup. See our full range of styles below!</p>
+                <a href="#" class="view-more-btn">View All Projects</a>
+            </div>
+        </div>
+    </div>
 </section>
 
 ---
@@ -799,6 +849,7 @@ document.querySelectorAll('nav ul li a').forEach(link => {
 // === SCROLL ANIMATIONS ===
 const combinedCard = document.querySelector('.combined-founder-card'); 
 const combinedServiceCard = document.querySelector('.combined-service-card');
+const singlePortfolioCard = document.querySelector('.single-portfolio-card'); 
 
 window.addEventListener('scroll', () => {
     const scrollY = window.scrollY + window.innerHeight;
@@ -816,6 +867,14 @@ window.addEventListener('scroll', () => {
             combinedServiceCard.style.transform = 'translateY(0)';
         }
     }
+    
+    // Animate the single portfolio card
+    if (singlePortfolioCard) {
+        if (scrollY > singlePortfolioCard.offsetTop + 100) {
+            singlePortfolioCard.style.opacity = 1;
+            singlePortfolioCard.style.transform = 'scale(1)';
+        }
+    }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -829,6 +888,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (combinedServiceCard && scrollY > combinedServiceCard.offsetTop + 50) {
         combinedServiceCard.style.opacity = 1;
         combinedServiceCard.style.transform = 'translateY(0)';
+    }
+
+    if (singlePortfolioCard && scrollY > singlePortfolioCard.offsetTop + 100) {
+        singlePortfolioCard.style.opacity = 1;
+        singlePortfolioCard.style.transform = 'scale(1)';
     }
 });
 
@@ -859,43 +923,8 @@ style.innerHTML = `
 document.head.appendChild(style);
 
 
-// === PORTFOLIO INFINITE SCROLL (Speed set to 2.5 seconds) ===
-const sliderTrack = document.querySelector(".slider-track");
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slide");
-const totalSlides = slides.length;
-
-slides.forEach(slide => {
-    sliderTrack.appendChild(slide.cloneNode(true));
-});
-
-let autoSlideInterval;
-
-const startAutoSlide = () => {
-    autoSlideInterval = setInterval(() => {
-        const slideWidth = slides[0].offsetWidth + 35; 
-        slideIndex++;
-        sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
-
-        if (slideIndex >= totalSlides) {
-            setTimeout(() => {
-                sliderTrack.style.transition = 'none'; 
-                slideIndex = 0;
-                sliderTrack.style.transform = `translateX(0)`;
-                setTimeout(() => {
-                    sliderTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; 
-                }, 50); 
-            }, 500); 
-        }
-    }, 2500); 
-};
-
-startAutoSlide(); 
-sliderTrack.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-sliderTrack.addEventListener('mouseleave', startAutoSlide);
-
-
-// === PARTICLE.JS CONFIGURATION ===
+// NOTE: Portfolio infinite scroll script removed as requested.
+// The main particles.js configuration remains active.
 particlesJS("particles-js", {
     "particles": {
         "number": {
