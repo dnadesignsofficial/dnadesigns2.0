@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>DNA Designs - Elevating Digital Experiences</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 <style>
 /* === COLOR PALETTE (Electric Blue Neon) === */
@@ -24,6 +25,66 @@ body {
     overflow-x:hidden; 
     line-height:1.6;
     -webkit-font-smoothing: antialiased;
+    position:relative;
+}
+
+/* Animated Gradient Overlay (new) */
+:root{
+    --g1: #00101a;
+    --g2: #001827;
+    --g3: #001a22;
+    --g4: #000814;
+}
+
+/* Animated gradient layer */
+.gradient-animate {
+    position: fixed;
+    inset: 0;
+    z-index: -4;
+    background: radial-gradient(circle at 10% 10%, rgba(0,191,255,0.06), transparent 10%),
+              radial-gradient(circle at 90% 80%, rgba(0,255,255,0.04), transparent 10%),
+              linear-gradient(135deg, rgba(0,15,30,0.85), rgba(0,5,10,0.85));
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.9;
+    animation: gradientShift 18s ease-in-out infinite alternate;
+    filter: blur(30px);
+}
+
+@keyframes gradientShift {
+    0% {
+        transform: scale(1) translateY(0) rotate(0deg);
+        background-position: 0% 0%, 100% 100%, 0% 0%;
+    }
+    50% {
+        transform: scale(1.03) translateY(-10px) rotate(0.5deg);
+        background-position: 20% 40%, 80% 60%, 10% 30%;
+    }
+    100% {
+        transform: scale(1.06) translateY(-20px) rotate(1deg);
+        background-position: 40% 60%, 60% 40%, 20% 60%;
+    }
+}
+
+/* tiny subtle stars/particle glows via repeating-radial-gradient */
+.particle-glow {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(0,255,255,0.06) 0px, rgba(0,255,255,0.00) 8px),
+        radial-gradient(circle at 30% 70%, rgba(0,191,255,0.05) 0px, rgba(0,191,255,0.00) 10px),
+        radial-gradient(circle at 70% 40%, rgba(0,255,255,0.04) 0px, rgba(0,255,255,0.00) 9px),
+        radial-gradient(circle at 85% 15%, rgba(0,191,255,0.03) 0px, rgba(0,191,255,0.00) 12px);
+    opacity: 0.9;
+    animation: particleDrift 28s linear infinite;
+    pointer-events: none;
+    filter: blur(6px);
+}
+@keyframes particleDrift {
+    0% { transform: translateY(0) translateX(0) scale(1); }
+    50% { transform: translateY(-20px) translateX(10px) scale(1.02); }
+    100% { transform: translateY(0) translateX(0) scale(1); }
 }
 
 /* Custom Scrollbar (Webkit browsers) */
@@ -38,7 +99,7 @@ body::-webkit-scrollbar-thumb {
 a { color:inherit; text-decoration:none; }
 button { cursor:pointer; border:none; background:none; padding:0; }
 
-/* === GLOBAL BACKGROUND GLOW ANIMATIONS === */
+/* === GLOBAL BACKGROUND GLOW ANIMATIONS (legacy grid - kept) === */
 
 /* Animation Keyframes */
 @keyframes gridPulse {
@@ -51,16 +112,16 @@ button { cursor:pointer; border:none; background:none; padding:0; }
     75% { opacity: 0.5; }
 }
 @keyframes slowPulse {
-    0% { transform: scale(1); opacity: 0.1; }
-    50% { transform: scale(1.05); opacity: 0.2; }
-    100% { transform: scale(1); opacity: 0.1; }
+    0% { transform: scale(1); opacity: 0.08; }
+    50% { transform: scale(1.05); opacity: 0.18; }
+    100% { transform: scale(1); opacity: 0.08; }
 }
 @keyframes sectionGlow {
-    0%, 100% { box-shadow: 0 0 100px rgba(0, 191, 255, 0.05) inset; }
-    50% { box-shadow: 0 0 120px rgba(0, 255, 255, 0.1) inset; }
+    0%, 100% { box-shadow: 0 0 100px rgba(0, 191, 255, 0.02) inset; }
+    50% { box-shadow: 0 0 120px rgba(0, 255, 255, 0.03) inset; }
 }
 
-/* Layer 1: Flickering Grid */
+/* Layer 1: Flickering Grid (reduced intensity) */
 body::before { 
     content:''; 
     position:fixed; 
@@ -69,15 +130,15 @@ body::before {
     width:100%; 
     height:100%; 
     background-image:
-        linear-gradient(rgba(0, 191, 255, 0.05) 1px, transparent 1px), 
-        linear-gradient(90deg, rgba(0, 191, 255, 0.05) 1px, transparent 1px);
-    background-size:30px 30px; 
-    z-index:-3; 
-    opacity:0.6; 
-    animation: gridPulse 20s infinite linear, flicker 5s infinite alternate; 
+        linear-gradient(rgba(0, 191, 255, 0.03) 1px, transparent 1px), 
+        linear-gradient(90deg, rgba(0, 191, 255, 0.02) 1px, transparent 1px);
+    background-size:40px 40px; 
+    z-index:-5; 
+    opacity:0.5; 
+    animation: gridPulse 30s infinite linear, flicker 8s infinite alternate; 
 }
 
-/* Layer 2: Subtle Pulse */
+/* Layer 2: Subtle Pulse (legacy but tweaked) */
 body::after {
     content:'';
     position:fixed;
@@ -85,25 +146,11 @@ body::after {
     left:0;
     width:100%;
     height:100%;
-    background: radial-gradient(circle at center, rgba(0, 191, 255, 0.1) 0%, transparent 60%);
-    z-index:-2;
-    animation: slowPulse 10s infinite ease-in-out;
+    background: radial-gradient(circle at center, rgba(0, 191, 255, 0.02) 0%, transparent 60%);
+    z-index:-6;
+    animation: slowPulse 12s infinite ease-in-out;
     pointer-events: none;
 }
-
-
-/* Custom Scrollbar (Webkit browsers) */
-body::-webkit-scrollbar { width: 10px; }
-body::-webkit-scrollbar-track { background: #111; }
-body::-webkit-scrollbar-thumb { 
-    background-color: #00bfff; 
-    border-radius: 6px;
-    border: 2px solid #111;
-}
-
-a { color:inherit; text-decoration:none; }
-button { cursor:pointer; border:none; background:none; padding:0; }
-
 
 /* === NAVBAR === */
 nav {
@@ -151,7 +198,7 @@ nav ul li a:hover {
 }
 nav ul li a:hover::after { width:100%; }
 
-/* Live Clock Styling - FINAL FIX */
+/* Live Clock Styling - FIX APPLIED HERE */
 #live-clock {
     display: inline-block; /* Makes it shrink to content width */
     font-size: 0.9rem;
@@ -164,6 +211,7 @@ nav ul li a:hover::after { width:100%; }
     border-radius: 5px;
     transition: all 0.3s;
     white-space: nowrap; /* Prevents wrapping */
+    width: 200px; /* INCREASED WIDTH FOR SAFER FIT */
     text-align: center;
 }
 #live-clock:hover {
@@ -212,7 +260,7 @@ header video {
     filter: grayscale(80%) brightness(0.6); 
 }
 #particles-js { /* THIS IS THE MAIN BACKGROUND ANIMATION CONTAINER */
-    position:absolute; width:100%; height:100%; z-index:-1; 
+    position:absolute; width:100%; height:100%; z-index:-2; 
 }
 .hero-content { 
     position:relative; 
@@ -227,7 +275,7 @@ header video {
 }
 @keyframes fadeInScale {
     0% { opacity: 0; transform: scale(0.9); }
-    100% { opacity: 1; transform: scale(1); }
+    100% { transform: scale(1); }
 }
 
 .hero-content h1 { 
@@ -307,33 +355,40 @@ section h2 {
 === FOUNDERS SECTION (3 SEPARATE SCROLLABLE CARDS) === 
 =================================================== */
 
-/* Container to enable horizontal scrolling and centering (Desktop) */
+/* Container updated to enable cinematic stagger & perspective */
 .founders-container {
     display: flex;
     justify-content: center;
     gap: 40px; /* Space between cards on desktop */
-    opacity: 0; 
-    transform: translateY(70px);
-    transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+    transform: translateY(70px) scale(0.98);
+    transition: transform 0.9s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.9s ease;
+    opacity: 0;
+    perspective: 1600px; /* for 3D pop */
+    padding: 20px 10px;
+    will-change: transform, opacity;
 }
 
-/* Individual founder card styling */
+/* Individual founder card styling (enhanced visuals) */
 .founder-card {
     width: 250px;
     flex-shrink: 0; /* Prevents shrinking on desktop */
     text-align: center;
-    background: rgba(255, 255, 255, 0.08); 
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255,255,255,0.02));
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-    border: 1px solid rgba(0, 191, 255, 0.3);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.75);
+    border: 1px solid rgba(0, 191, 255, 0.08);
     perspective: 1000px;
-    transition: all 0.5s ease-in-out;
+    transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.5s ease, filter 0.5s ease;
     position: relative; /* For rotating glow */
-    overflow: hidden; /* For containing the glow */
+    overflow: visible; /* allow glows to show */
+    transform-style: preserve-3d;
+    will-change: transform, box-shadow, filter;
+    opacity: 0;
+    transform: translateY(20px) scale(0.98) rotateX(8deg);
 }
 
-/* NEW: Rotating Neon Glow for Founders */
+/* Rotating Neon Glow for Founders (kept but optimized) */
 .founder-card::before {
     content: '';
     position: absolute;
@@ -341,26 +396,29 @@ section h2 {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: conic-gradient(transparent 0deg, transparent 90deg, #00bfff 100deg, #00ffff 150deg, #00bfff 200deg, transparent 270deg);
+    background: conic-gradient(transparent 0deg, transparent 90deg, rgba(0,191,255,0.08) 100deg, rgba(0,255,255,0.06) 150deg, rgba(0,191,255,0.08) 200deg, transparent 270deg);
     z-index: -1;
-    animation: rotateGlow 8s linear infinite;
-    opacity: 0.5;
-    filter: blur(10px);
+    animation: rotateGlow 12s linear infinite;
+    opacity: 0.35;
+    filter: blur(14px) saturate(1.2);
+    transform-origin: 50% 50%;
 }
-.founder-card:hover::before { opacity: 0.8; } /* Enhance glow on hover */
-
 @keyframes rotateGlow {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
+.founder-card:hover::before { opacity: 0.7; } /* Enhance glow on hover */
 
 .founder-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 20px 50px rgba(0, 191, 255, 0.5);
-    border-color: #00ffff;
+    transform: translateY(-8px) scale(1.06) rotateX(0deg);
+    box-shadow: 0 30px 80px rgba(0, 191, 255, 0.28);
+    border-color: rgba(0,255,255,0.2);
+    filter: saturate(1.05);
+    z-index: 6;
 }
 
+/* 3D image wrapper and smooth movement */
 .founder-card .img-wrapper {
     width: 150px;
     height: 150px;
@@ -368,26 +426,40 @@ section h2 {
     border-radius: 50%;
     border: 4px solid #00bfff;
     overflow: hidden;
-    box-shadow: 0 0 25px rgba(0, 191, 255, 0.6);
-    transition: all 0.5s ease-in-out;
-    position: relative; /* To center the image properly */
+    box-shadow: 0 0 40px rgba(0, 191, 255, 0.6);
+    transition: transform 0.8s cubic-bezier(0.2,0.9,0.2,1);
+    transform-style: preserve-3d;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
 }
 
-/* FIX: Ensure founder images fit correctly within the circle */
+/* Ensure founder images fit correctly within the circle */
 .founder-card .img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover; /* CRITICAL FIX: Ensures the image covers the frame */
     display: block;
-    transition: transform 0.6s ease-in-out;
+    transition: transform 0.9s ease-in-out;
+    object-position: center top; 
+    transform-origin: center center;
 }
 
+/* When a card comes into view (staggered via JS) */
+.founder-card.in-view {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+}
+
+/* small parallax transform for cards near center */
+.founder-card.parallax {
+    transform: translateZ(40px) scale(1.02);
+}
 
 .founder-card h4 {
     color: #00ffff;
     font-size: 1.4rem;
     font-weight: 800;
     text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+    transition: transform 0.5s ease;
 }
 
 /* New About Text Style */
@@ -403,35 +475,29 @@ section h2 {
     margin-top: -50px; 
 }
 
-
 /* ===================================================
 === SERVICES SECTION (Simple Stacked Cards) === 
 =================================================== */
 .services-container {
-    /* Centered max-width container */
     max-width: 900px; 
     margin: 0 auto;
     padding: 0 20px; 
     margin-bottom: 50px; 
-    /* Desktop & Mobile: Single column stack */
     display: grid; 
-    grid-template-columns: 1fr; /* Forces a single column layout */
-    gap: 30px; /* Space between stacked cards */
+    grid-template-columns: 1fr; 
+    gap: 30px; 
 }
 
 .service-card { 
-    /* Initial state for scroll animation */
     opacity: 0; 
     transform: translateY(70px);
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-
-    /* Styling for the full-width rectangle */
     min-width: 100%;
     width: 100%;
-    text-align: left; /* Aligned content to the left for a list/rectangle feel */
+    text-align: left; 
     background: rgba(255, 255, 255, 0.08); 
-    padding:30px 40px; /* Adjusted padding for rectangle look */
-    border-radius:15px; /* Slightly smaller radius */
+    padding:30px 40px; 
+    border-radius:15px; 
     border:2px solid rgba(0, 191, 255, 0.2); 
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     position:relative;
@@ -439,7 +505,7 @@ section h2 {
 }
 
 .service-card:hover { 
-    transform:translateY(-5px) scale(1.005); /* Reduced hover effect */
+    transform:translateY(-5px) scale(1.005); 
     border-color: #00ffff; 
     background:rgba(0, 191, 255, 0.15); 
     box-shadow: 0 15px 30px rgba(0, 255, 255, 0.6);
@@ -452,7 +518,7 @@ section h2 {
     text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
     display:flex; 
     align-items:center; 
-    justify-content:flex-start; /* Align header content to the left */
+    justify-content:flex-start; 
 }
 .service-card h3 i { 
     font-size:2.2rem; 
@@ -463,9 +529,19 @@ section h2 {
 .service-card p { 
     color:#bdbdbd; 
     font-size:1.1rem;
-    padding-left: 40px; /* Align paragraph text with the list-style look */
+    padding-left: 40px; 
 }
-
+.service-card p ul {
+    list-style: disc; 
+    margin-left: 40px;
+    padding-left: 0;
+    text-align: left;
+}
+.service-card p ul li {
+    margin-bottom: 5px;
+    color: #f0f0f0;
+    font-size: 1rem;
+}
 
 /* === PORTFOLIO SECTION (SINGLE CARD STYLES) === */
 .portfolio-container {
@@ -533,7 +609,6 @@ section h2 {
     background: #00ffff;
 }
 
-
 /* === CONTACT FORM SECTION === */
 form { max-width:650px; margin:0 auto; display:flex; flex-direction:column; gap:25px; }
 input, textarea { 
@@ -572,11 +647,9 @@ input:focus, textarea:focus {
 }
 .submit-btn:active { transform: translateY(-1px) scale(0.98); }
 
-
 /* === FOOTER === */
 footer { 
     text-align:center; 
-    /* Minimized padding */
     padding:20px 20px 30px 20px; 
     background:#111; 
     color:#a0a0a0; 
@@ -607,7 +680,7 @@ footer::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(0, 255, 255, 0.06) 0%, transparent 70%);
     animation: footerGlow 15s infinite ease-in-out;
     opacity: 0;
     z-index: 0;
@@ -620,10 +693,8 @@ footer::after {
     100% { transform: scale(0.5); opacity: 0; }
 }
 
-
 /* === RESPONSIVE DESIGN (FIXES APPLIED HERE) === */
 @media(max-width:900px){
-    /* HEADER FIX: Ensures the navigation menu works properly on mobile */
     .menu-toggle { display:flex; } /* Show hamburger icon on mobile */
 
     nav { padding:15px 30px; }
@@ -714,78 +785,84 @@ footer::after {
     form { gap:15px; }
 }
 
+/* Small util for animated entrances when JS triggers */
+.revealed { opacity:1 !important; transform:none !important; transition: all 0.9s cubic-bezier(0.2,0.9,0.2,1); }
+
 </style>
 </head>
 <body>
 
+<div class="gradient-animate" aria-hidden="true"></div>
+<div class="particle-glow" aria-hidden="true"></div>
+
 <nav>
-  <div class="logo">
-    <img src="logo.png" alt="DNA Designs Logo">
-    DNA Designs
-  </div>
-    <div class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></div>
-  <ul id="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <div id="live-clock"></div>
-  </ul>
+  <div class="logo">
+    <img src="logo.png" alt="DNA Designs Logo">
+    DNA Designs
+  </div>
+    <div class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></div>
+  <ul id="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <div id="live-clock"></div>
+  </ul>
 </nav>
 
 <header id="home">
-  <video autoplay muted loop>
-    <source src="video-background.mp4" type="video/mp4">
-  </video>
-  <div id="particles-js"></div> 
-  <div class="hero-content">
-    <h1>DNA Designs</h1>
-    <p class="tagline">Your Vision, Our Masterpiece. Designed in our DNA.</p>
-    <h2 class="dynamic-text">Brand & Logo Design</h2>
-    <a href="#contact" class="btn">Get In Touch</a>
-  </div>
+  <video autoplay muted loop>
+    <source src="video-background.mp4" type="video/mp4">
+  </video>
+  <div id="particles-js"></div> 
+  <div class="hero-content" data-aos="fade-up" data-aos-duration="900">
+    <h1>DNA Designs</h1>
+    <p class="tagline">Your Vision, Our Masterpiece. Designed in our DNA.</p>
+    <h2 class="dynamic-text">Brand & Logo Design</h2>
+    <a href="#contact" class="btn">Get In Touch</a>
+  </div>
 </header>
 
 <section id="about">
-  <h2>About DNA Designs</h2>
-    <p class="about-intro-text">
-        DNA Designs was born from a belief that creativity and precision can co-exist. We don’t just design — we craft the digital identity that defines you.
-    </p>
-    
-  <h2>Meet Our Founders</h2>
-  <div class="founders-container">
-    
-        <div class="founder-card">
-            <div class="img-wrapper">
-                <img src="founder1.jpg" alt="Diksha Gupta">
-            </div>
-            <h4>Diksha Gupta</h4>
-        </div>
-        
-        <div class="founder-card">
-            <div class="img-wrapper">
-                <img src="founder2.jpg" alt="Nayan Patel">
-            </div>
-            <h4>Nayan Patel</h4>
-        </div>
+  <h2 data-aos="fade-down">About DNA Designs</h2>
+    <p class="about-intro-text" data-aos="fade-up" data-aos-delay="100">
+        DNA Designs was born from a belief that creativity and precision can co-exist. We don’t just design — we craft the digital identity that defines you.
+    </p>
+    
+  <h2 data-aos="fade-down">Meet Our Founders</h2>
+  <div class="founders-container" id="foundersContainer" aria-label="Founders">
+    
+        <div class="founder-card" data-name="Diksha" data-aos="zoom-in" data-aos-delay="120">
+            <div class="img-wrapper">
+                <img src="founder1.jpg" alt="Diksha Gupta">
+            </div>
+            <h4>Diksha Gupta</h4>
+        </div>
+        
+        <div class="founder-card" data-name="Nayan" data-aos="zoom-in" data-aos-delay="220">
+            <div class="img-wrapper">
+                <img src="founder2.jpg" alt="Nayan Patel">
+            </div>
+            <h4>Nayan Patel</h4>
+        </div>
 
-        <div class="founder-card">
-            <div class="img-wrapper">
-                <img src="founder3.jpg" alt="Adarsh Roy">
-            </div>
-            <h4>Adarsh Roy</h4>
-        </div>
-  </div>
+        <div class="founder-card" data-name="Adarsh" data-aos="zoom-in" data-aos-delay="320">
+            <div class="img-wrapper">
+                <img src="founder3.jpg" alt="Adarsh Roy">
+            </div>
+            <h4>Adarsh Roy</h4>
+        </div>
+  </div>
 </section>
 
 <section id="services">
-  <h2>Our Services</h2>
-  <div class="services-container">
-    
-        <div class="service-card">
-            <h3><i class="fas fa-palette"></i> Brand & Logo Design</h3>
-            <p>
+  <h2 data-aos="fade-down">Our Services</h2>
+  <div class="services-container">
+    
+        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+            <h3><i class="fas fa-palette"></i> Brand & Logo Design</h3>
+            <p>
                 <ul>
                     <li>Custom Logo Design</li>
                     <li>Brand Identity Kits</li>
@@ -794,11 +871,11 @@ footer::after {
                     <li>3D / Animated Logos</li>
                 </ul>
             </p>
-        </div>
-        
-        <div class="service-card">
-            <h3><i class="fas fa-video"></i> Video & Motion Graphics</h3>
-            <p>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up" data-aos-delay="180">
+            <h3><i class="fas fa-video"></i> Video & Motion Graphics</h3>
+            <p>
                 <ul>
                     <li>Promo Reels</li>
                     <li>Event Recaps / Cinematic Montages</li>
@@ -807,22 +884,22 @@ footer::after {
                     <li>Visual Storytelling</li>
                 </ul>
             </p>
-        </div>
-        
-        <div class="service-card">
-            <h3><i class="fas fa-desktop"></i> Web & UX Design</h3>
-            <p>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up" data-aos-delay="260">
+            <h3><i class="fas fa-desktop"></i> Web & UX Design</h3>
+            <p>
                 <ul>
                     <li>Websites</li>
                     <li>Business Pages / Portfolio Sites</li>
                     <li>Responsive & Modern Interactive Landing Pages</li>
                 </ul>
             </p>
-        </div>
-        
-        <div class="service-card">
-            <h3><i class="fas fa-bullhorn"></i> Print & Campaign Media</h3>
-            <p>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up" data-aos-delay="340">
+            <h3><i class="fas fa-bullhorn"></i> Print & Campaign Media</h3>
+            <p>
                 <ul>
                     <li>Event Posters, College & Corporate Flyers</li>
                     <li>Campaign Designs, Social Media Banners</li>
@@ -830,69 +907,69 @@ footer::after {
                     <li>Infographic Designs</li>
                 </ul>
             </p>
-        </div>
-        
-        <div class="service-card">
-            <h3><i class="fas fa-pencil-ruler"></i> Digital Art & Pitch Decks</h3>
-            <p>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up" data-aos-delay="420">
+            <h3><i class="fas fa-pencil-ruler"></i> Digital Art & Pitch Decks</h3>
+            <p>
                 <ul>
                     <li>Start-up Presentations / Investor Decks / Pitch Decks</li>
                     <li>PowerPoint & Canva Templates / Minimal Infographics</li>
                     <li>Digital Sketches / Custom Characters / Illustrations</li>
                     <li>Portrait Art / Concept-Based Artwork</li>
-                    <li>Photo-to-Art Conversions / Couple / Family Art</li>
-                    <li>Vector Art</li>
+                    <li>Photo-to-Art Conversions / Couple / Family Art, Vector Art</li>
                 </ul>
             </p>
-        </div>
-  </div>
+        </div>
+  </div>
 </section>
 
 <section id="portfolio">
-  <h2>Our Portfolio</h2>
-    <div class="portfolio-container">
-        <div class="single-portfolio-card">
-            <div class="portfolio-card-content">
-                <img src="portfolio1.png" alt="Featured Portfolio Project">
-                <h3>Featured Project: Logo Identity</h3>
-            </div>
-        </div>
-    </div>
+  <h2 data-aos="fade-down">Our Portfolio</h2>
+    <div class="portfolio-container">
+        <div class="single-portfolio-card" data-aos="zoom-in" data-aos-delay="180">
+            <div class="portfolio-card-content">
+                <img src="portfolio1.png" alt="Featured Portfolio Project">
+            </div>
+        </div>
+    </div>
 </section>
 
 <section id="contact">
-  <h2>Connect With Us</h2>
-  <form action="https://formspree.io/f/xnngrjww" method="POST">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Email Address" required>
-    <input type="tel" name="mobile" placeholder="Mobile Number" value="9111288148" required>
-    <input type="text" name="city" placeholder="City" required>
-    <textarea name="details" rows="5" placeholder="Tell us about your design project..." required></textarea>
-    <button type="submit" class="submit-btn">Send Message</button>
-  </form>
-    <div style="text-align: center; margin-top: 30px; font-size: 1.1rem; color: #00bfff;">
-        <p>Call Us: <a href="tel:9111288148" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">+91 9111288148</a></p>
-        <p>Email: <a href="mailto:dnadesigns.official@gmail.com" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">dnadesigns.official@gmail.com</a></p>
-        <p>Website: <a href="https://dnadesigns.co.in" target="_blank" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">dnadesigns.co.in</a></p>
-    </div>
+  <h2 data-aos="fade-down">Connect With Us</h2>
+  <form action="https://formspree.io/f/xnngrjww" method="POST" data-aos="fade-up" data-aos-delay="100">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <input type="tel" name="mobile" placeholder="Mobile Number" value="9111288148" required>
+    <input type="text" name="city" placeholder="City" required>
+    <textarea name="details" rows="5" placeholder="Tell us about your design project..." required></textarea>
+    <button type="submit" class="submit-btn">Send Message</button>
+  </form>
+    <div style="text-align: center; margin-top: 30px; font-size: 1.1rem; color: #00bfff;" data-aos="fade-up" data-aos-delay="200">
+        <p>Call Us: <a href="tel:9111288148" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">+91 9111288148</a></p>
+        <p>Email: <a href="mailto:dnadesigns.official@gmail.com" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">dnadesigns.official@gmail.com</a></p>
+        <p>Website: <a href="https://dnadesigns.co.in" target="_blank" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">dnadesigns.co.in</a></p>
+    </div>
 </section>
 
 <footer>
-  <p>© 2025 DNA Designs. All rights reserved. | Crafted with <i class="fas fa-heart" style="color:#00ffff;"></i> by DNA Designs</p>
-  <div class="social-icons">
-    <p style="font-size: 1rem; color: #a0a0a0; margin-bottom: 10px;">Like, Share & Follow Us: @dnadesigns.official</p>
-    
-        <a href="https://www.instagram.com/dnadesigns.official?igsh=emNwOTVnZTVrcXFr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    
-        <a href="https://www.facebook.com/share/1CmLU2JvKE/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-    
-        <a href="https://wa.me/919111288148" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    
-    <a href="mailto:dnadesigns.official@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-  </div>
+  <p>© 2025 DNA Designs. All rights reserved. | Crafted with <i class="fas fa-heart" style="color:#00ffff;"></i> by DNA Designs</p>
+  <div class="social-icons">
+    <p style="font-size: 1rem; color: #a0a0a0; margin-bottom: 10px;">Like, Share & Follow Us: @dnadesigns.official</p>
+    
+        <a href="https://www.instagram.com/dnadesigns.official?igsh=emNwOTVnZTVrcXFr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    
+        <a href="https://www.facebook.com/share/1CmLU2JvKE/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    
+        <a href="https://wa.me/919111288148" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    
+    <a href="mailto:dnadesigns.official@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+  </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
 <script>
 // === LIVE CLOCK FUNCTIONALITY (Desktop Only) ===
 function updateClock() {
@@ -907,8 +984,23 @@ function updateClock() {
     const dateString = now.toLocaleDateString('en-IN', dateOptions);
     
     // Clean up spaces and format: DD/MM/YYYY | HH:MM:SS PM
-    const [timePart, periodPart] = timeString.split(/(AM|PM)/);
-    const finalTimeString = `${dateString} | ${timePart.trim()}${periodPart}`;
+    // The locale-specific formatting for toLocaleTimeString can be tricky with split.
+    // Let's use string manipulation to guarantee the desired format (DD/MM/YYYY | HH:MM:SS PM)
+    
+    // Manual time component extraction and padding for robustness
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+    const period = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    
+    const formattedDate = dateString.replace(/\//g, '/'); // ensure standard date separators
+    const formattedTime = `${hours}:${minutes}:${seconds}${period}`;
+
+    const finalTimeString = `${formattedDate} | ${formattedTime}`;
 
 
     const clockElement = document.getElementById('live-clock');
@@ -934,23 +1026,25 @@ document.querySelectorAll('nav ul li a').forEach(link => {
         e.preventDefault();
         navLinks.classList.remove('show');
         menuToggle.classList.remove('active');
-        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
 });
 
 // === SCROLL ANIMATIONS (Simple Fade-in for Services and Founders) ===
 const founderContainer = document.querySelector('.founders-container'); 
+const founderCards = document.querySelectorAll('.founder-card');
 const serviceCards = document.querySelectorAll('.service-card');
 const singlePortfolioCard = document.querySelector('.single-portfolio-card'); 
 
 function runGeneralAnimations() {
     const scrollY = window.scrollY + window.innerHeight;
 
-    // Animate Founder Container
+    // Animate Founder Container (reveal as a block)
     if (founderContainer) {
         if (scrollY > founderContainer.offsetTop + 50) {
             founderContainer.style.opacity = 1;
-            founderContainer.style.transform = 'translateY(0)';
+            founderContainer.style.transform = 'translateY(0) scale(1)';
         }
     }
     
@@ -972,11 +1066,12 @@ function runGeneralAnimations() {
     }
 }
 
-
 window.addEventListener('scroll', runGeneralAnimations);
-
-document.addEventListener('DOMContentLoaded', runGeneralAnimations);
-
+document.addEventListener('DOMContentLoaded', () => {
+    runGeneralAnimations();
+    AOS.init({ once: true, duration: 800, mirror: false });
+    initFoundersObserver();
+});
 
 // === DYNAMIC HERO TEXT (Speed set to 2 seconds) ===
 const texts = ["Brand & Logo Design", "Video & Motion Graphics", "Web & UX Design", "Print & Campaign Media", "Digital Art & Pitch Decks"];
@@ -984,6 +1079,7 @@ let textIndex = 0;
 const dynamicTextElement = document.querySelector('.dynamic-text');
 
 setInterval(() => {
+    if(!dynamicTextElement) return;
     dynamicTextElement.classList.add('hide'); 
     setTimeout(() => {
         dynamicTextElement.textContent = texts[textIndex];
@@ -1003,110 +1099,119 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-
-// The main particles.js configuration remains active.
+// === Particles config (gentle glow + connecting lines) ===
 particlesJS("particles-js", {
     "particles": {
-        "number": {
-            "value": 100, 
-            "density": {
-                "enable": true,
-                "value_area": 1000 
-            }
-        },
-        "color": {
-            "value": ["#00bfff", "#00ffff", "#f0f0f0"] 
-        },
-        "shape": {
-            "type": "circle",
-            "stroke": {
-                "width": 0,
-                "color": "#000000"
-            },
-            "polygon": {
-                "nb_sides": 5
-            }
-        },
+        "number": { "value": 80, "density": {"enable": true, "value_area": 900 } },
+        "color": { "value": ["#00bfff", "#00ffff", "#bfefff"] },
+        "shape": { "type": "circle" },
         "opacity": {
-            "value": 0.7,
+            "value": 0.65,
             "random": true,
-            "anim": {
-                "enable": true,
-                "speed": 1,
-                "opacity_min": 0.1,
-                "sync": false
-            }
+            "anim": { "enable": true, "speed": 1.2, "opacity_min": 0.05, "sync": false }
         },
         "size": {
-            "value": 4, 
+            "value": 3.5,
             "random": true,
-            "anim": {
-                "enable": true,
-                "speed": 10, 
-                "size_min": 0.5,
-                "sync": false
-            }
+            "anim": { "enable": true, "speed": 6, "size_min": 0.6, "sync": false }
         },
         "line_linked": {
             "enable": true,
-            "distance": 130, 
-            "color": "#00bfff", 
-            "opacity": 0.4,
+            "distance": 140,
+            "color": "#00bfff",
+            "opacity": 0.14,
             "width": 1
         },
         "move": {
             "enable": true,
-            "speed": 2,
+            "speed": 1.8,
             "direction": "none",
             "random": true,
             "straight": false,
-            "out_mode": "bounce", 
-            "bounce": true,
-            "attract": {
-                "enable": false,
-                "rotateX": 600,
-                "rotateY": 1200
-            }
+            "out_mode": "out",
+            "bounce": false
         }
     },
     "interactivity": {
         "detect_on": "canvas",
         "events": {
-            "onhover": {
-                "enable": true,
-                "mode": "bubble" 
-            },
-            "onclick": {
-                "enable": true,
-                "mode": "repulse" 
-            },
+            "onhover": { "enable": true, "mode": "grab" },
+            "onclick": { "enable": true, "mode": "push" },
             "resize": true
         },
         "modes": {
-            "grab": {
-                "distance": 400,
-                "line_linked": {
-                    "opacity": 1
-                }
-            },
-            "bubble": {
-                "distance": 200, 
-                "size": 10, 
-                "duration": 2,
-                "opacity": 0.8,
-                "speed": 3
-            },
-            "repulse": {
-                "distance": 100, 
-                "duration": 0.4
-            },
-            "push": {
-                "particles_nb": 4
-            }
+            "grab": {"distance": 180, "line_linked": {"opacity": 0.9}},
+            "bubble": {"distance": 200,"size": 8,"duration": 2,"opacity": 0.8,"speed": 3},
+            "repulse": {"distance": 100,"duration": 0.4},
+            "push": {"particles_nb": 4}
         }
     },
     "retina_detect": true
 });
+
+// === Founders: IntersectionObserver + mouse-parallax for 3D pop ===
+function initFoundersObserver() {
+    const options = { root: null, rootMargin: '0px', threshold: 0.28 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const cards = entry.target.querySelectorAll('.founder-card');
+            if (entry.isIntersecting) {
+                // stagger reveal
+                cards.forEach((card, i) => {
+                    setTimeout(() => card.classList.add('in-view'), i * 120);
+                });
+            }
+        });
+    }, options);
+
+    if (founderContainer) observer.observe(founderContainer);
+
+    // mouse parallax effect on each founder card (desktop only)
+    const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    if (!isTouch) {
+        document.querySelectorAll('.founder-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const rotY = (x - 0.5) * 12; // rotate Y
+                const rotX = (0.5 - y) * 8;  // rotate X
+                const transZ = 12 + (0.5 - Math.abs(x-0.5)) * 18;
+                card.style.transform = `translateY(-6px) scale(1.04) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(${transZ}px)`;
+                const img = card.querySelector('.img-wrapper');
+                if(img) img.style.transform = `translateZ(${transZ/2}px) rotateY(${rotY/6}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                const img = card.querySelector('.img-wrapper');
+                if(img) img.style.transform = '';
+            });
+        });
+
+        // subtle parallax based on scroll position (center card pops a bit)
+        window.addEventListener('scroll', () => {
+            const center = window.scrollY + (window.innerHeight / 2);
+            founderCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardCenter = rect.top + window.scrollY + (rect.height / 2);
+                const distance = Math.abs(center - cardCenter);
+                if (distance < 300) {
+                    card.classList.add('parallax');
+                } else {
+                    card.classList.remove('parallax');
+                }
+            });
+        }, { passive: true });
+    }
+}
+
+// small helper to reveal items already in view (AOS + custom)
+window.addEventListener('load', () => {
+    document.querySelectorAll('[data-aos]').forEach(el => {
+        // handled by AOS
+    });
+});
+
 </script>
 </body>
 </html>
