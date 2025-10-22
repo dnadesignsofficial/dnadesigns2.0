@@ -548,7 +548,11 @@ section h2 {
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
+    flex-direction: column; /* Allows adding text above/below the card */
+    align-items: center;
 }
+/* Removed .portfolio-intro as it's no longer needed at the top */
+
 .single-portfolio-card {
     max-width: 600px;
     width: 100%;
@@ -586,28 +590,18 @@ section h2 {
     transition: 0.5s;
 }
 
-.portfolio-card-content h3 {
-    color: #00ffff;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-.portfolio-card-content p {
-    color: #ccc;
+/* Styling for the text *inside* the card, below the image */
+.portfolio-card-content .portfolio-after-text {
+    max-width: 100%; /* Ensure it fits within the card's width */
+    text-align: center;
+    color: #f0f0f0;
     font-size: 1.1rem;
-    margin-bottom: 20px;
+    margin-top: 20px; /* Space from the image above */
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 191, 255, 0.2);
+    /* No bottom margin needed if it's the last element */
 }
-.view-more-btn {
-    padding: 10px 25px;
-    background: #00bfff;
-    color: #000;
-    font-weight: 700;
-    border-radius: 5px;
-    transition: 0.3s;
-    text-transform: uppercase;
-}
-.view-more-btn:hover {
-    background: #00ffff;
-}
+
 
 /* === CONTACT FORM SECTION === */
 form { max-width:650px; margin:0 auto; display:flex; flex-direction:column; gap:25px; }
@@ -929,10 +923,15 @@ footer::after {
     <div class="portfolio-container">
         <div class="single-portfolio-card" data-aos="zoom-in" data-aos-delay="180">
             <div class="portfolio-card-content">
-                <img src="portfolio1.png" alt="Featured Portfolio Project">
+                <img src="portfolio1.png" alt="Featured Portfolio Project"> 
+                
+                <p class="portfolio-after-text" data-aos="fade-up" data-aos-delay="250">
+                    A glimpse into our recent work crafting a bold, modern brand identity for a tech startup. See our full range of styles below!
+                </p>
             </div>
         </div>
-    </div>
+        
+        </div>
 </section>
 
 <section id="contact">
